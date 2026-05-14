@@ -1,0 +1,1497 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{amsmath,amssymb}
+
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{9.45in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\evensidemargin}{-0.25in}
+\setlength{\topmargin}{-0.48in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\newcommand{\lecture}[2]{\section*{Lecture #1: #2}\addcontentsline{toc}{section}{Lecture #1: #2}}
+\newcommand{\topic}[1]{\subsection*{#1}}
+\newcommand{\situation}{\textbf{Situation:} }
+\newcommand{\cue}{\textbf{Personal cue:} }
+\newcommand{\formula}{\textbf{Formula:} }
+\newcommand{\symbols}{\textbf{Symbols:} }
+\newcommand{\means}{\textbf{Meaning:} }
+\newcommand{\exam}{\textbf{Exam-style prompt:} }
+\newcommand{\trap}{\textbf{Trap:} }
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+
+\newenvironment{symbolitems}{%
+  \begin{list}{$\bullet$}{%
+    \setlength{\leftmargin}{1.35em}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{2pt}%
+  }%
+}{\end{list}}
+
+
+\title{\vspace{-2em}MIT 6.041SC Formula Notes\\Situation-First Exam Guide for Lectures 1--15}
+\author{English-only formula notes based on personal notes and MIT 6.041SC materials}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+\tableofcontents
+
+\textbf{How to read this note.} Each entry starts with the situation you should recognize in an exam question. The ``Personal cue'' lines are distilled from the handwritten notes: they are meant to trigger the right model before you look at the formula. Then each entry gives the formula, explains every important symbol, and says what the expectation or variance means in words. This is intentionally not a textbook summary and not a problem set collection.
+
+\textbf{Scope rule.} Only Lectures 1--15 are included. Practice materials are used only to identify common cues. Later-course material is excluded.
+
+\lecture{1}{Probability Models and Axioms}
+
+\topic{When the question asks for ``at least one''}
+\situation The event is something like ``at least one of $A,B,C$ happens.'' This usually means it is easier to compute the complement, ``none happens.''
+
+\formula
+\[
+\Prob(\text{at least one of }A_1,\ldots,A_n)
+=1-\Prob(A_1^c\cap\cdots\cap A_n^c).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A_i$ is event $i$.
+  \item $A_i^c$ means event $A_i$ does not happen.
+  \item $\Prob(\cdot)$ means probability.
+\end{symbolitems}
+
+\means This formula says: instead of counting all ways one or more events happen, count the single clean case where none happen, then subtract from 1.
+
+\exam A backup system has three possible warning events during a day. What is the probability that at least one warning event occurs?
+
+\trap Do not write $\Prob(A\cup B)=\Prob(A)+\Prob(B)$ unless $A$ and $B$ are disjoint.
+
+\topic{When events overlap}
+\situation The question asks for $A$ or $B$, and both can happen together.
+
+\formula
+\[
+\Prob(A\cup B)=\Prob(A)+\Prob(B)-\Prob(A\cap B).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A\cup B$ means $A$ or $B$.
+  \item $A\cap B$ means both $A$ and $B$.
+\end{symbolitems}
+
+\means Add the two event probabilities, then subtract the overlap because it was counted twice.
+
+\exam A student may pass the midterm, the final, or both. Given the probability of each pass event and the probability of passing both, find the probability the student passed at least one exam.
+
+\trap If the events are disjoint, then $\Prob(A\cap B)=0$ and the formula becomes simple addition.
+
+\topic{When all outcomes are equally likely}
+\situation The problem says random, uniformly chosen, fair die, random card, random assignment, or every outcome is equally likely.
+
+\formula
+\[
+\Prob(A)=\frac{|A|}{|\Omega|}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\Omega$ is the sample space.
+  \item $|A|$ is the number of favorable outcomes.
+  \item $|\Omega|$ is the total number of possible outcomes.
+\end{symbolitems}
+
+\means Probability becomes counting. First count what you want, then divide by all possible outcomes.
+
+\exam A card is chosen uniformly from a shuffled deck. What is the probability that the card is either a heart or a king?
+
+\trap The sample space must be chosen at the right granularity. A wrong sample space gives a wrong denominator.
+
+\lecture{2}{Conditional Probability, Multiplication, Total Probability, Bayes}
+
+\topic{When the question says ``given''}
+\situation You see wording like ``given $B$ happened,'' ``among cases with $B$,'' or ``probability of $A$ under condition $B$.''
+
+\cue The condition is the new universe. Find the denominator first: it should be the probability of the thing you are told happened.
+
+\formula
+\[
+\Prob(A\mid B)=\frac{\Prob(A\cap B)}{\Prob(B)},\qquad \Prob(B)>0.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A$ is the event you want.
+  \item $B$ is the condition/new universe.
+  \item $\Prob(A\cap B)$ is the probability that both happen.
+\end{symbolitems}
+
+\means The denominator is the condition. You are no longer looking at all outcomes, only outcomes inside $B$.
+
+\exam A student is selected at random. Given that the student passed the midterm, what is the probability that the student also passed the final?
+
+\trap Do not switch the condition. $\Prob(A\mid B)$ is usually not equal to $\Prob(B\mid A)$.
+
+\topic{When a problem unfolds in stages}
+\situation A tree diagram is natural: first something happens, then another event happens depending on the first one.
+
+\formula
+\[
+\Prob(A\cap B)=\Prob(A)\Prob(B\mid A).
+\]
+For more stages,
+\[
+\Prob(A_1\cap\cdots\cap A_n)
+=\Prob(A_1)\Prob(A_2\mid A_1)\cdots
+\Prob(A_n\mid A_1\cap\cdots\cap A_{n-1}).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A_1,\ldots,A_n$ are events occurring in sequence.
+  \item $\Prob(A_i\mid A_1\cap\cdots\cap A_{i-1})$ uses all earlier events as the condition.
+\end{symbolitems}
+
+\means Multiply along one path of the tree.
+
+\exam A box is chosen first, then a ball is drawn from that box. What is the probability that box 2 is chosen and the drawn ball is red?
+
+\trap If a later probability changes because of earlier information, use a conditional probability, not the original probability.
+
+\topic{When there are several possible cases}
+\situation The event $B$ can happen through different cases $A_1,A_2,\ldots,A_n$, and those cases split the whole sample space.
+
+\formula
+\[
+\Prob(B)=\sum_{i=1}^n \Prob(A_i)\Prob(B\mid A_i).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A_i$ are disjoint cases that cover all possibilities.
+  \item $B$ is the event you want.
+\end{symbolitems}
+
+\means Break the probability of $B$ into all ways $B$ can happen.
+
+\exam A product comes from one of three factories with known factory proportions and defect rates. What is the probability that a randomly chosen product is defective?
+
+\trap The $A_i$ cases must be disjoint and exhaustive. If not, this formula is not valid as written.
+
+\topic{When the question reverses cause and evidence}
+\situation You are given $\Prob(\text{evidence}\mid \text{case})$, but the question asks $\Prob(\text{case}\mid \text{evidence})$. Examples: forecast/rain, test/disease, signal/state.
+
+\cue Bayes is belief revision. Start with prior beliefs about the cases, then revise them after seeing evidence $B$.
+
+\formula
+\[
+\Prob(A_i\mid B)=
+\frac{\Prob(A_i)\Prob(B\mid A_i)}
+{\sum_j \Prob(A_j)\Prob(B\mid A_j)}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A_i$ is one possible hidden case.
+  \item $B$ is the observed evidence.
+  \item $\Prob(A_i)$ is the prior probability of case $i$.
+\end{symbolitems}
+
+\means Bayes' rule updates the probability of a hidden case after seeing evidence.
+
+\exam A medical test is positive. The disease rate, true-positive rate, and false-positive rate are known. What is the probability the person actually has the disease?
+
+\trap The denominator is not just $\Prob(B\mid A_i)$. It is the total probability of seeing the evidence $B$.
+
+\lecture{3}{Independence and Conditional Independence}
+
+\topic{When knowing one event gives no information}
+\situation The problem says independent, or asks whether $A$ and $B$ are independent.
+
+\cue Do not decide independence by feeling. Check whether knowing $B$ leaves the probability of $A$ unchanged, or check the product rule.
+
+\formula
+\[
+A,B\text{ independent}\quad \Longleftrightarrow\quad
+\Prob(A\cap B)=\Prob(A)\Prob(B).
+\]
+Equivalently, if $\Prob(B)>0$,
+\[
+\Prob(A\mid B)=\Prob(A).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A$ and $B$ are events.
+  \item $\Prob(A\cap B)$ is the probability both happen.
+\end{symbolitems}
+
+\means If $B$ happens and the probability of $A$ stays the same, then $B$ gives no information about $A$.
+
+\exam Events $A$ and $B$ have known probabilities and a known intersection probability. Are $A$ and $B$ independent?
+
+\trap Disjoint does not mean independent. If $A$ and $B$ are disjoint and both have positive probability, then they are not independent.
+
+\topic{When independence is only true after conditioning}
+\situation The question says events are independent given $C$, or asks whether two events become independent inside a condition.
+
+\formula
+\[
+\Prob(A\cap B\mid C)=\Prob(A\mid C)\Prob(B\mid C).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $C$ is the condition.
+  \item $A$ and $B$ are the two events being checked inside the new universe $C$.
+\end{symbolitems}
+
+\means Conditional independence means $A$ and $B$ are independent after you restrict attention to $C$.
+
+\exam Given that a machine is in state $C$, two sensors fail independently. What is the probability that both sensors fail given state $C$?
+
+\trap Conditional independence does not imply ordinary independence, and ordinary independence does not imply conditional independence.
+
+\topic{When there are many events}
+\situation The question asks if $A_1,\ldots,A_n$ are independent.
+
+\formula
+\[
+\Prob\!\left(\bigcap_{i\in S}A_i\right)=\prod_{i\in S}\Prob(A_i)
+\quad\text{for every subset }S.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $S$ is any subset of event indices, such as $\{1,3,4\}$.
+\end{symbolitems}
+
+\means Full independence means every possible group of events factors, not just pairs.
+
+\exam Three events $A_1,A_2,A_3$ have all single, pairwise, and triple probabilities listed. Determine whether the three events are mutually independent.
+
+\trap Pairwise independence is weaker than full independence.
+
+\lecture{4}{Counting and Discrete Uniform Models}
+
+\topic{When choices happen in stages}
+\situation You choose something in stage 1, then stage 2, and so on.
+
+\formula
+\[
+\#\text{ outcomes}=n_1n_2\cdots n_r.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $n_i$ is the number of choices available at stage $i$.
+  \item $r$ is the number of stages.
+\end{symbolitems}
+
+\means Multiply the number of choices at each stage.
+
+\exam A password has 2 letters followed by 3 digits, with repetition allowed. How many passwords are possible?
+
+\trap This works when each final outcome is counted exactly once.
+
+\topic{When order matters}
+\situation The problem asks for ordered arrangements, rankings, sequences, or first/second/third positions.
+
+\formula
+\[
+\text{number of ordered }k\text{-sequences from }n\text{ distinct objects}
+=\frac{n!}{(n-k)!}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $n$ is total objects.
+  \item $k$ is how many positions you fill.
+\end{symbolitems}
+
+\means You have $n$ choices for the first position, $n-1$ for the second, and so on.
+
+\exam From 10 runners, gold, silver, and bronze medals are assigned. How many ordered medal outcomes are possible?
+
+\trap If order does not matter, this overcounts.
+
+\topic{When order does not matter}
+\situation The problem asks for a hand, group, subset, or which $k$ objects are selected.
+
+\formula
+\[
+\binom{n}{k}=\frac{n!}{k!(n-k)!}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $n$ is the total number of objects.
+  \item $k$ is the number selected.
+\end{symbolitems}
+
+\means Choose $k$ objects without caring about order.
+
+\exam A committee of 4 students is selected from 12 students. How many different committees are possible?
+
+\trap A card hand usually uses combinations, not permutations.
+
+\topic{When a fixed number of successes is placed among trials}
+\situation You have $n$ trials and exactly $k$ of them are successes.
+
+\formula
+\[
+\#\text{ success-position patterns}=\binom{n}{k}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $n$ is the number of trials.
+  \item $k$ is the number of successes.
+\end{symbolitems}
+
+\means Choose which $k$ positions are successes.
+
+\exam In 10 independent trials, exactly 4 trials are successes. How many possible success-position patterns are there?
+
+\trap This counting factor is the reason the binomial PMF contains $\binom{n}{k}$.
+
+\lecture{5}{Random Variables, PMFs, Expectation, Variance}
+
+\topic{When outcomes are converted into numbers}
+\situation The experiment outcome is not itself a number you want, so define a random variable such as number of heads, minimum roll, or payoff.
+
+\cue To build a PMF, collect all original outcomes that produce the same value of the random variable.
+
+\formula
+\[
+p_X(x)=\Prob(X=x).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $X$ is the random variable.
+  \item $x$ is a possible numerical value.
+  \item $p_X(x)$ is the PMF value at $x$.
+\end{symbolitems}
+
+\means The PMF tells how likely each value of $X$ is.
+
+\exam Two dice are rolled and $X$ is the maximum of the two rolls. What is the PMF of $X$?
+
+\trap A random variable $X$ is a function on the sample space. A value $x$ is just one possible output.
+
+\topic{When you need the average value}
+\situation The problem asks for expected value, average payoff, average number, or long-run mean.
+
+\formula
+\[
+\E[X]=\sum_x x\,p_X(x).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $x$ runs over all possible values of $X$.
+  \item $p_X(x)$ is the probability of that value.
+\end{symbolitems}
+
+\means Multiply each value by its probability and add. This is the long-run average value of $X$.
+
+\exam A game pays different dollar amounts depending on the die roll. What is the expected payoff?
+
+\trap $\E[g(X)]$ is usually not $g(\E[X])$.
+
+\topic{When the variable is transformed}
+\situation The problem asks for the expected value of a function of $X$, such as $X^2$, payoff $g(X)$, or cost depending on $X$.
+
+\cue Average the transformed value $g(x)$ with the original probability of $x$. Do not transform the mean unless the function is linear.
+
+\formula
+\[
+\E[g(X)]=\sum_x g(x)p_X(x).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $g$ is the function applied to $X$.
+  \item $g(x)$ is the value after applying the function to $x$.
+\end{symbolitems}
+
+\means You do not need the PMF of $g(X)$ first. Average the transformed values directly.
+
+\exam A random variable $X$ has a known PMF. What is $\E[X^2+3X]$?
+
+\trap Use $g(x)$ inside the sum, not $x$.
+
+\topic{When you need spread around the mean}
+\situation The problem asks for variance, uncertainty, or standard deviation.
+
+\formula
+\[
+\Var(X)=\E[X^2]-(\E[X])^2.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\Var(X)$ is variance.
+  \item $\E[X]$ is the mean.
+  \item $\E[X^2]$ is the expected square.
+\end{symbolitems}
+
+\means Variance measures how spread out $X$ is around its mean.
+
+\exam A random payoff $X$ has a known PMF. Find the variance of the payoff.
+
+\trap $\Var(aX+b)=a^2\Var(X)$. The shift $b$ does not change spread.
+
+\lecture{6}{Conditional PMFs and Total Expectation}
+
+\topic{When the distribution changes after an event}
+\situation The problem asks for the PMF of $X$ after event $A$ occurred.
+
+\cue This is the same ``new universe'' idea as conditional probability, but now you normalize a whole PMF instead of one event.
+
+\formula
+\[
+p_{X\mid A}(x)=\Prob(X=x\mid A)
+=\frac{\Prob(\{X=x\}\cap A)}{\Prob(A)}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $A$ is the condition.
+  \item $p_{X\mid A}(x)$ is the conditional PMF of $X$ after knowing $A$.
+\end{symbolitems}
+
+\means Keep only outcomes inside $A$, then renormalize probabilities.
+
+\exam A die is rolled, and $X$ is the number shown. Given that the roll is even, what is the conditional PMF of $X$?
+
+\trap The conditional PMF over all $x$ must sum to 1.
+
+\topic{When you know another random variable's value}
+\situation The problem asks for $X$ given $Y=y$.
+
+\cue In a joint PMF table, fixing $Y=y$ means stay in one row or column, then divide by that row or column total.
+
+\formula
+\[
+p_{X\mid Y}(x\mid y)=\frac{p_{X,Y}(x,y)}{p_Y(y)}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $p_{X,Y}(x,y)$ is the joint PMF.
+  \item $p_Y(y)$ is the marginal probability that $Y=y$.
+\end{symbolitems}
+
+\means Fix $Y=y$, then normalize the row/column of the joint PMF.
+
+\exam A joint PMF table for $X$ and $Y$ is given. What is the conditional PMF of $X$ given that $Y=2$?
+
+\trap This only works when $p_Y(y)>0$.
+
+\topic{When direct expectation is hard but cases are easy}
+\situation The problem has a first-stage random outcome, and the expectation is easy after conditioning on that outcome.
+
+\cue Split into cases, compute the mean inside each case, then weight those means by how likely the cases are.
+
+\formula
+\[
+\E[X]=\sum_y \E[X\mid Y=y]\,p_Y(y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $Y$ is the variable you condition on.
+  \item $p_Y(y)$ is the probability of case $y$.
+\end{symbolitems}
+
+\means Average the conditional means, weighted by how likely each case is.
+
+\exam A die roll first decides how many coins are flipped. What is the expected number of heads?
+
+\trap Do not forget the weights $p_Y(y)$.
+
+\lecture{7}{Multiple Random Variables and Joint PMFs}
+
+\topic{When two discrete variables appear together}
+\situation The problem gives a table or asks about $X$ and $Y$ together.
+
+\cue Joint means ``together.'' Before doing anything else, identify which pairs $(x,y)$ are possible and which are outside the support.
+
+\formula
+\[
+p_{X,Y}(x,y)=\Prob(X=x,\ Y=y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $x$ is a possible value of $X$.
+  \item $y$ is a possible value of $Y$.
+\end{symbolitems}
+
+\means The joint PMF tells the probability of each pair $(x,y)$.
+
+\exam A table gives probabilities for pairs $(X,Y)$. What is the probability that $X<Y$?
+
+\trap Marginal PMFs alone do not determine the joint PMF unless independence is known.
+
+\topic{When you need only one variable from a joint PMF}
+\situation You have $p_{X,Y}(x,y)$ but the question asks only about $X$ or only about $Y$.
+
+\cue Marginal means remove the variable you do not care about by summing over all of its possible values.
+
+\formula
+\[
+p_X(x)=\sum_y p_{X,Y}(x,y),
+\qquad
+p_Y(y)=\sum_x p_{X,Y}(x,y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\sum_y$ removes $Y$ and leaves a function of $x$.
+  \item $\sum_x$ removes $X$ and leaves a function of $y$.
+\end{symbolitems}
+
+\means Add across the row or column of the joint PMF.
+
+\exam A joint PMF table for $X$ and $Y$ is given. Find the marginal PMF of $X$.
+
+\trap Sum over the correct variable.
+
+\topic{When you need a function of two variables}
+\situation The problem defines $Z=g(X,Y)$ and asks for its PMF or expectation.
+
+\cue For a PMF of a new variable, group together all pairs that give the same new value.
+
+\formula
+\[
+p_Z(z)=\sum_{(x,y):\,g(x,y)=z}p_{X,Y}(x,y),
+\qquad
+\E[g(X,Y)]=\sum_x\sum_y g(x,y)p_{X,Y}(x,y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $Z$ is the new random variable.
+  \item $g(x,y)$ is the value produced from the pair $(x,y)$.
+\end{symbolitems}
+
+\means To get a PMF, collect all pairs producing the same $z$. To get expectation, average $g(x,y)$ directly.
+
+\exam Let $Z=X+Y$ for two discrete random variables with a known joint PMF. What is the PMF of $Z$?
+
+\trap Do not assume $\E[g(X,Y)]=g(\E[X],\E[Y])$.
+
+\topic{When $X$ and $Y$ are independent}
+\situation The problem states independence, or asks you to test it from a joint PMF.
+
+\formula
+\[
+p_{X,Y}(x,y)=p_X(x)p_Y(y).
+\]
+If independent,
+\[
+\E[XY]=\E[X]\E[Y],
+\qquad
+\Var(X+Y)=\Var(X)+\Var(Y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $p_X$ and $p_Y$ are marginal PMFs.
+\end{symbolitems}
+
+\means Independence lets you factor the joint law and add variances.
+
+\exam Two independent random variables $X$ and $Y$ have known means and variances. What are $\E[X+Y]$ and $\Var(X+Y)$?
+
+\trap Linearity of expectation does not require independence, but variance addition does.
+
+\lecture{8}{Continuous Random Variables, PDFs, CDFs}
+
+\topic{When the random variable is continuous}
+\situation The question asks for probability over an interval, such as $a\leq X\leq b$.
+
+\formula
+\[
+\Prob(a\leq X\leq b)=\int_a^b f_X(x)\,dx.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $f_X(x)$ is the PDF of $X$.
+  \item $a,b$ are interval endpoints.
+\end{symbolitems}
+
+\means Probability is area under the density curve.
+
+\exam A continuous random variable has PDF $f_X(x)$. What is the probability that $X$ lies between 1 and 3?
+
+\trap For continuous $X$, $\Prob(X=x)=0$ even if $f_X(x)$ is large.
+
+\topic{When the question asks for $X\leq x$}
+\situation The event is written as a less-than threshold.
+
+\formula
+\[
+F_X(x)=\Prob(X\leq x)=\int_{-\infty}^x f_X(t)\,dt.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $F_X$ is the CDF.
+  \item $t$ is a dummy integration variable.
+\end{symbolitems}
+
+\means The CDF accumulates all probability to the left of $x$.
+
+\exam A PDF is given. Find the CDF value $F_X(2)$.
+
+\trap Do not confuse $F_X(x)$ with $f_X(x)$.
+
+\topic{When the distribution is uniform on an interval}
+\situation The problem says $X$ is uniformly distributed between $a$ and $b$.
+
+\formula
+\[
+f_X(x)=\frac{1}{b-a},\quad a\leq x\leq b,
+\qquad
+\E[X]=\frac{a+b}{2},
+\qquad
+\Var(X)=\frac{(b-a)^2}{12}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $a$ is the left endpoint.
+  \item $b$ is the right endpoint.
+\end{symbolitems}
+
+\means All equal-length intervals inside $[a,b]$ are equally likely. The mean is the midpoint.
+
+\exam A bus arrival time is uniformly distributed between 0 and 20 minutes. What is the probability the bus arrives within the first 5 minutes?
+
+\trap The density is zero outside $[a,b]$.
+
+\topic{When the distribution is normal}
+\situation The problem gives $X\sim N(\mu,\sigma^2)$ and asks for a probability.
+
+\formula
+\[
+Z=\frac{X-\mu}{\sigma}\sim N(0,1).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\mu$ is the mean.
+  \item $\sigma^2$ is the variance.
+  \item $\sigma$ is the standard deviation.
+\end{symbolitems}
+
+\means Convert $X$ into a standard normal variable before using normal tables.
+
+\exam Exam scores are normally distributed with mean 70 and standard deviation 10. What is the probability a score is below 85?
+
+\trap If $X\sim N(\mu,\sigma^2)$, then the second parameter is variance, not standard deviation.
+
+\lecture{9}{Joint PDFs and Continuous Conditioning}
+
+\topic{When two continuous variables appear together}
+\situation The problem gives a density over a region in the $(x,y)$ plane.
+
+\cue Draw the support first. Most mistakes in joint PDF problems come from wrong integration limits.
+
+\formula
+\[
+\Prob((X,Y)\in A)=\iint_A f_{X,Y}(x,y)\,dx\,dy.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $f_{X,Y}(x,y)$ is the joint PDF.
+  \item $A$ is the region of interest.
+\end{symbolitems}
+
+\means Probability is volume under the joint density over the region.
+
+\exam A joint PDF is constant over a triangular region. What is the probability that $(X,Y)$ lies in a smaller specified subregion?
+
+\trap Always draw the support region before setting integration limits.
+
+\topic{When you need one marginal density}
+\situation You have a joint PDF but need the PDF of only $X$ or only $Y$.
+
+\formula
+\[
+f_X(x)=\int_{-\infty}^{\infty}f_{X,Y}(x,y)\,dy,
+\qquad
+f_Y(y)=\int_{-\infty}^{\infty}f_{X,Y}(x,y)\,dx.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\int f_{X,Y}(x,y)\,dy$ removes $Y$ and leaves a density in $x$.
+  \item $\int f_{X,Y}(x,y)\,dx$ removes $X$ and leaves a density in $y$.
+\end{symbolitems}
+
+\means Marginal density is found by adding all possible values of the other variable.
+
+\exam A joint PDF is given on the region $0\leq y\leq x\leq 1$. Find the marginal density of $Y$.
+
+\trap The actual limits usually come from the support, not from $-\infty$ to $\infty$ mechanically.
+
+\topic{When you know $Y=y$ in a continuous problem}
+\situation The question asks for the conditional density of $X$ given a continuous value $Y=y$.
+
+\cue This is a normalized slice. Fix $Y=y$, then divide the joint density slice by the marginal density of that slice.
+
+\formula
+\[
+f_{X\mid Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $f_Y(y)$ is the marginal density of $Y$ at $y$.
+  \item $f_{X\mid Y}(x\mid y)$ is a density in $x$ after fixing $y$.
+\end{symbolitems}
+
+\means Fix the slice $Y=y$, then normalize the slice so the area over $x$ is 1.
+
+\exam A joint PDF is given. Find the conditional density of $X$ given that $Y=0.4$.
+
+\trap $\Prob(Y=y)=0$, but $f_{X\mid Y}(x\mid y)$ is still meaningful as a conditional density.
+
+\topic{When checking independence for continuous variables}
+\situation The problem asks if $X$ and $Y$ are independent.
+
+\formula
+\[
+f_{X,Y}(x,y)=f_X(x)f_Y(y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $f_X$ and $f_Y$ are marginal PDFs.
+\end{symbolitems}
+
+\means The joint density factors into separate $X$ and $Y$ pieces.
+
+\exam A joint PDF and its support are given. Determine whether $X$ and $Y$ are independent.
+
+\trap If the support is not rectangular, independence is usually impossible.
+
+\lecture{10}{Derived Distributions and Continuous Bayes}
+
+\topic{When $Y=g(X)$ and $g$ is monotone}
+\situation The problem transforms one continuous random variable by a one-to-one function.
+
+\formula
+\[
+f_Y(y)=f_X(g^{-1}(y))\left|\frac{d}{dy}g^{-1}(y)\right|.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $g^{-1}(y)$ is the $x$ value that produces $y$.
+  \item $\left|\frac{d}{dy}g^{-1}(y)\right|$ adjusts density after stretching/compressing.
+\end{symbolitems}
+
+\means Density changes when the scale changes.
+
+\exam $X$ has a known PDF and $Y=2X+1$. Find the PDF of $Y$.
+
+\trap Do not forget the absolute derivative.
+
+\topic{When the transformation is not simple}
+\situation $g(X)$ is not monotone, has several inverse branches, or the event is easier as $Y\leq y$.
+
+\formula
+\[
+F_Y(y)=\Prob(Y\leq y)=\Prob(g(X)\leq y),
+\qquad
+f_Y(y)=\frac{d}{dy}F_Y(y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $F_Y$ is the CDF of $Y$.
+  \item $f_Y$ is its PDF.
+\end{symbolitems}
+
+\means First find the probability region for $g(X)\leq y$, then differentiate.
+
+\exam $X$ is uniform on $[-1,1]$ and $Y=X^2$. Find the CDF or PDF of $Y$.
+
+\trap Always update the support of $Y$.
+
+\topic{When evidence is continuous but the hidden state is discrete}
+\situation The hidden variable $X$ is discrete, but the observation $Y$ is continuous. For example, a signal is generated under different possible states.
+
+\cue This is still Bayes: prior $\times$ likelihood, divided by total evidence density.
+
+\formula
+\[
+p_{X\mid Y}(x\mid y)=
+\frac{p_X(x)f_{Y\mid X}(y\mid x)}
+{\sum_u p_X(u)f_{Y\mid X}(y\mid u)}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $p_X(x)$ is the prior probability of hidden state $x$.
+  \item $f_{Y\mid X}(y\mid x)$ is the observation density if state $x$ is true.
+\end{symbolitems}
+
+\means This is Bayes' rule with continuous evidence.
+
+\exam A hidden signal $X$ is either 0 or 1, and a continuous noisy measurement $Y$ is observed. Given $Y=y$, what is the probability that $X=1$?
+
+\trap The denominator sums over all possible hidden states $u$.
+
+\lecture{11}{Convolution, Covariance, Correlation}
+
+\topic{When the random variable is a sum}
+\situation The problem defines $W=X+Y$ and $X,Y$ are independent.
+
+\cue Once $X=x$ is fixed, the other variable must be $Y=w-x$. Add over every possible way to make the same sum.
+
+\formula
+\[
+f_W(w)=\int_{-\infty}^{\infty}f_X(x)f_Y(w-x)\,dx.
+\]
+For discrete variables,
+\[
+p_W(w)=\sum_x p_X(x)p_Y(w-x).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $w$ is the target sum.
+  \item $x$ is one possible value of $X$.
+  \item $w-x$ is the value $Y$ must take once $X=x$.
+\end{symbolitems}
+
+\means Add over all ways the two variables can sum to $w$.
+
+\exam Two independent continuous delays $X$ and $Y$ are added. What is the PDF of the total delay $W=X+Y$?
+
+\trap Convolution needs independence. Limits must respect support.
+
+\topic{When one variable is discrete and the other is continuous}
+\situation $W=X+Y$, $X$ is discrete, $Y$ is continuous, and they are independent.
+
+\formula
+\[
+f_W(w)=\sum_x p_X(x)f_Y(w-x).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $p_X(x)$ is the probability that the discrete variable equals $x$.
+  \item $f_Y(w-x)$ is the density of $Y$ at the value needed to make the sum $w$.
+\end{symbolitems}
+
+\means The density of $W$ is a weighted mixture of shifted densities of $Y$.
+
+\exam A machine is either in mode 0 or mode 2, and independent noise $Y$ is continuous. If $W=X+Y$, what is the PDF of $W$?
+
+\trap Do not integrate over a discrete variable.
+
+\topic{When the question asks how two variables move together}
+\situation You need covariance or correlation.
+
+\formula
+\[
+\Cov(X,Y)=\E[XY]-\E[X]\E[Y],
+\qquad
+\Corr(X,Y)=\frac{\Cov(X,Y)}{\sigma_X\sigma_Y}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\sigma_X=\sqrt{\Var(X)}$ and $\sigma_Y=\sqrt{\Var(Y)}$ are standard deviations.
+\end{symbolitems}
+
+\means Covariance measures linear co-movement. Correlation rescales it between $-1$ and $1$.
+
+\exam A joint distribution for $X$ and $Y$ is given. Find $\Cov(X,Y)$ and decide whether the variables tend to move together.
+
+\trap Zero covariance does not always mean independence.
+
+\lecture{12}{Conditional Expectation and Total Variance}
+
+\topic{When the expected value depends on an observed variable}
+\situation You know $Y=y$ and want the expected value of $X$ under that information.
+
+\formula
+\[
+\E[X\mid Y=y]=\int_{-\infty}^{\infty}x f_{X\mid Y}(x\mid y)\,dx.
+\]
+For discrete $X$,
+\[
+\E[X\mid Y=y]=\sum_x x p_{X\mid Y}(x\mid y).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $Y=y$ is the observed condition.
+  \item $f_{X\mid Y}$ or $p_{X\mid Y}$ is the conditional distribution of $X$.
+\end{symbolitems}
+
+\means This is the average value of $X$ after learning $Y=y$.
+
+\exam The length of a stick piece $X$ depends on a first break point $Y$. Given $Y=y$, what is the expected length of $X$?
+
+\trap $\E[X\mid Y]$ is a random variable because it changes with $Y$.
+
+\topic{When total expectation is needed}
+\situation The problem is easier if you first condition on a random case $Y$.
+
+\cue Think ``case means first, overall mean second.'' The outside expectation averages the case means.
+
+\formula
+\[
+\E[X]=\E[\E[X\mid Y]].
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\E[X\mid Y]$ is the conditional mean as a function of $Y$.
+  \item $\E[\E[X\mid Y]]$ averages those conditional means over $Y$.
+\end{symbolitems}
+
+\means First compute the average inside each case. Then average those case averages.
+
+\exam A random type is selected first, and each type has a different expected cost. What is the overall expected cost?
+
+\trap Do not replace $\E[X\mid Y]$ by a single number unless it is constant.
+
+\topic{When variance has within-case and between-case parts}
+\situation The problem asks for variance and there is a natural conditioning variable $Y$.
+
+\cue Total variance has two sources: randomness inside each case, and randomness because different cases have different means.
+
+\formula
+\[
+\Var(X)=\E[\Var(X\mid Y)]+\Var(\E[X\mid Y]).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\Var(X\mid Y)$ is the conditional variance inside each case.
+  \item $\E[X\mid Y]$ is the conditional mean in each case.
+\end{symbolitems}
+
+\means Total variance equals average within-case variance plus variance of the case means.
+
+\exam A population has two groups with different within-group variances and different group means. What is the overall variance?
+
+\trap Do not confuse the two terms. They measure different sources of randomness.
+
+\lecture{13}{Bernoulli Process}
+
+\topic{When each trial is success/failure}
+\situation You have independent repeated trials, each with success probability $p$.
+
+\cue Bernoulli process is discrete time: trial 1, trial 2, trial 3, and each trial is success/failure.
+
+\formula
+\[
+X_i\sim \operatorname{Bernoulli}(p),
+\qquad
+\Prob(X_i=1)=p,\quad \Prob(X_i=0)=1-p.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $X_i=1$ means success on trial $i$.
+  \item $p$ is the probability of success on one trial.
+\end{symbolitems}
+
+\means Each trial is a 0/1 random variable.
+
+\exam A trial is a success with probability $p$ and a failure otherwise. Define the random variable for one trial.
+
+\trap Bernoulli is one trial. Binomial counts successes over many trials.
+
+\topic{When the total number of trials is fixed}
+\situation The question gives $n$ trials and asks for exactly $k$ successes.
+
+\cue Fixed total $n$ is the main trigger. If the problem gives the total number of trials first, think Binomial.
+
+\formula
+\[
+S_n\sim \operatorname{Binomial}(n,p),
+\qquad
+\Prob(S_n=k)=\binom{n}{k}p^k(1-p)^{n-k}.
+\]
+\[
+\E[S_n]=np,\qquad \Var(S_n)=np(1-p).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $S_n$ is the number of successes in $n$ trials.
+  \item $n$ is fixed total trials.
+  \item $k$ is the number of successes.
+  \item $p$ is success probability on each trial.
+\end{symbolitems}
+
+\means $\E[S_n]=np$ is the average number of successes you expect in $n$ trials.
+
+\exam A machine produces 20 items independently, and each item is defective with probability $0.03$. What is the probability that exactly 2 items are defective?
+
+\trap If the problem does not give a fixed number of trials, do not jump to Binomial.
+
+\topic{When waiting for the first success}
+\situation The question asks for the trial number of the first success, such as first win or first arrival in discrete slots.
+
+\cue Geometric is waiting language. You do not know the total number of trials in advance; you stop when the first success appears.
+
+\formula
+\[
+T_1\sim \operatorname{Geometric}(p),
+\qquad
+\Prob(T_1=t)=(1-p)^{t-1}p,\quad t=1,2,\ldots
+\]
+\[
+\E[T_1]=\frac{1}{p},
+\qquad
+\Var(T_1)=\frac{1-p}{p^2}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $T_1$ is the trial number of the first success.
+  \item $t$ is a possible trial number.
+  \item $p$ is success probability per trial.
+\end{symbolitems}
+
+\means $\E[T_1]=1/p$ means the average number of trials needed until the first success.
+
+\exam A player wins each round independently with probability $p$. What is the probability that the first win occurs on round 5?
+
+\trap Some books count failures before first success instead of trial number. Here $T_1$ counts the success trial too.
+
+\topic{When waiting for the kth success}
+\situation The question asks for the number of trials until the $k$th success.
+
+\cue The last trial must be a success. That is why you choose the first $k-1$ successes among the first $t-1$ trials.
+
+\formula
+\[
+Y_k\sim \operatorname{NegativeBinomial}(k,p),
+\qquad
+\Prob(Y_k=t)=\binom{t-1}{k-1}p^k(1-p)^{t-k},\quad t\geq k.
+\]
+\[
+\E[Y_k]=\frac{k}{p},
+\qquad
+\Var(Y_k)=\frac{k(1-p)}{p^2}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $Y_k$ is the trial number of the $k$th success.
+  \item $k$ is the required number of successes.
+  \item $t$ is the trial when the $k$th success occurs.
+  \item $p$ is success probability.
+\end{symbolitems}
+
+\means $\E[Y_k]=k/p$ is the average number of trials needed to get $k$ successes.
+
+\exam A player wins each round independently with probability $p$. What is the probability that the 3rd win occurs on round 10?
+
+\trap The final trial $t$ must be a success. The first $t-1$ trials must contain exactly $k-1$ successes.
+
+\topic{When Bernoulli arrivals from different sources are merged}
+\situation In one discrete time slot, source 1 has an arrival with probability $p$ and source 2 has an arrival with probability $q$, independently.
+
+\cue For Bernoulli merging, use the complement of no arrivals. Do not simply add $p+q$ unless the probabilities are tiny or mutually exclusive.
+
+\formula
+\[
+\Prob(\text{at least one arrival in the slot})
+=1-(1-p)(1-q)=p+q-pq.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $p$ and $q$ are the per-slot arrival probabilities from the two independent Bernoulli sources.
+\end{symbolitems}
+
+\means The merged process has an arrival in a slot if at least one source has an arrival.
+
+\exam Two independent sensors can trigger in the same time slot with probabilities $p$ and $q$. What is the probability that the merged alarm stream has a trigger in that slot?
+
+\trap Bernoulli merging uses per-slot probabilities. Poisson merging uses continuous-time rates.
+
+\lecture{14}{Poisson Process I}
+
+\topic{When arrivals happen in continuous time}
+\situation The problem says arrivals occur over time with rate $\lambda$, such as calls per minute, customers per hour, or particles per second.
+
+\cue Poisson process is continuous time. $\lambda$ is a rate, not a probability; multiply by the interval length to get the expected count.
+
+\formula
+\[
+N(t)\sim \operatorname{Poisson}(\lambda t),
+\qquad
+\Prob(N(t)=k)=e^{-\lambda t}\frac{(\lambda t)^k}{k!}.
+\]
+\[
+\E[N(t)]=\lambda t,
+\qquad
+\Var(N(t))=\lambda t.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $N(t)$ is the number of arrivals in time interval length $t$.
+  \item $\lambda$ is the arrival rate per unit time.
+  \item $k$ is the number of arrivals.
+\end{symbolitems}
+
+\means $\E[N(t)]=\lambda t$ is the average number of arrivals expected during length $t$.
+
+\exam Calls arrive according to a Poisson process with rate 4 calls per hour. What is the probability that exactly 6 calls arrive in the next 2 hours?
+
+\trap $\lambda$ is a rate. The Poisson parameter for an interval is $\lambda t$, not just $\lambda$.
+
+\topic{When the interval is very small}
+\situation The problem uses a tiny time step $\delta$ or asks about local behavior of a Poisson process.
+
+\cue This is the bridge from Bernoulli to Poisson: in a tiny interval, success probability is about $\lambda\delta$.
+
+\formula
+\[
+\Prob(N(\delta)=0)\approx 1-\lambda\delta,
+\qquad
+\Prob(N(\delta)=1)\approx \lambda\delta,
+\qquad
+\Prob(N(\delta)\geq 2)\approx 0.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\delta$ is a very small time length.
+  \item $\lambda$ is the arrival rate.
+\end{symbolitems}
+
+\means In a very short interval, either no arrival happens or one arrival happens; two or more is negligible.
+
+\exam In a tiny interval of length $\delta$, what is the approximate probability that exactly one Poisson arrival occurs?
+
+\trap This is an approximation for small $\delta$, not the exact formula for large intervals.
+
+\topic{When intervals do not overlap}
+\situation The problem counts arrivals in disjoint time intervals.
+
+\cue Counts in separate non-overlapping time blocks do not affect each other.
+
+\formula
+\[
+N(t_2)-N(t_1)\quad\text{is independent of counts outside }(t_1,t_2].
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $N(t_2)-N(t_1)$ is the number of arrivals between times $t_1$ and $t_2$.
+\end{symbolitems}
+
+\means Poisson process has independent increments: disjoint intervals behave independently.
+
+\exam For a Poisson process, are the numbers of arrivals from 0 to 1 hour and from 1 to 3 hours independent?
+
+\trap Overlapping intervals are not independent.
+
+\topic{When Binomial becomes approximately Poisson}
+\situation There are many independent trials, each success is rare, and the expected number of successes $np$ stays moderate.
+
+\cue This is the rare-event bridge: let $n$ be large, $p$ be small, and $\lambda=np$.
+
+\formula
+\[
+\binom{n}{k}p^k(1-p)^{n-k}
+\approx e^{-\lambda}\frac{\lambda^k}{k!},
+\qquad \lambda=np.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $n$ is the number of trials.
+  \item $p$ is the success probability per trial.
+  \item $\lambda=np$ is the approximate Poisson mean.
+\end{symbolitems}
+
+\means A large Binomial count with rare successes behaves like a Poisson count with the same mean.
+
+\exam A factory makes many items, each independently defective with a very small probability. What distribution can approximate the number of defects?
+
+\trap This approximation is for rare events. If $p$ is not small, use the Binomial model directly.
+
+\lecture{15}{Poisson Process II: Waiting Times, Splitting, Merging}
+
+\topic{When waiting for the first arrival}
+\situation The question asks for the time until the first arrival in a Poisson process.
+
+\cue Exponential is the continuous-time version of waiting for the first success. Geometric counts trials; exponential measures time.
+
+\formula
+\[
+T_1\sim \operatorname{Exponential}(\lambda),
+\qquad
+f_{T_1}(t)=\lambda e^{-\lambda t},\quad t\geq 0.
+\]
+\[
+\Prob(T_1>t)=e^{-\lambda t},
+\qquad
+\E[T_1]=\frac{1}{\lambda},
+\qquad
+\Var(T_1)=\frac{1}{\lambda^2}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $T_1$ is time until the first arrival.
+  \item $\lambda$ is the arrival rate.
+  \item $t$ is a time length.
+\end{symbolitems}
+
+\means $\E[T_1]=1/\lambda$ is the average waiting time until the first arrival. If arrivals are faster, $\lambda$ is larger and the average wait is smaller.
+
+\exam Buses arrive according to a Poisson process with rate $\lambda$ per hour. What is the probability that the waiting time for the next bus is more than 10 minutes?
+
+\trap Exponential is continuous time. Geometric is discrete trials.
+
+\topic{When waiting for the kth arrival}
+\situation The question asks for the time until the $k$th arrival in a Poisson process.
+
+\cue Erlang is the continuous-time version of waiting for the kth success. The answer is a time density, not a count probability.
+
+\formula
+\[
+Y_k\sim \operatorname{Erlang}(k,\lambda),
+\qquad
+f_{Y_k}(y)=\frac{\lambda^k y^{k-1}e^{-\lambda y}}{(k-1)!},\quad y\geq 0.
+\]
+\[
+\E[Y_k]=\frac{k}{\lambda},
+\qquad
+\Var(Y_k)=\frac{k}{\lambda^2}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $Y_k$ is the time of the $k$th arrival.
+  \item $k$ is the arrival number.
+  \item $y$ is a possible time.
+  \item $\lambda$ is the arrival rate.
+\end{symbolitems}
+
+\means $\E[Y_k]=k/\lambda$ is the average time needed to see $k$ arrivals.
+
+\exam Customers arrive according to a Poisson process with rate $\lambda$. What is the density of the time when the 4th customer arrives?
+
+\trap $Y_k$ is a time. $N(t)$ is a count. Do not use their formulas interchangeably.
+
+\topic{When converting between kth arrival time and arrival count}
+\situation The question gives a time $t$ but asks about the kth arrival time, or gives a kth arrival condition and asks about counts.
+
+\cue If time formulas feel hard, translate the statement into a count statement: kth arrival by time $t$ means at least $k$ arrivals by time $t$.
+
+\formula
+\[
+\Prob(Y_k\leq t)=\Prob(N(t)\geq k),
+\qquad
+\Prob(Y_k>t)=\Prob(N(t)\leq k-1).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $Y_k$ is time of kth arrival.
+  \item $N(t)$ is the number of arrivals by time $t$.
+\end{symbolitems}
+
+\means The kth arrival has occurred by time $t$ exactly when at least $k$ arrivals have occurred by time $t$.
+
+\exam In a Poisson process, what is the probability that the 3rd arrival occurs before time 5?
+
+\trap $\Prob(Y_k\leq t)$ is not $\Prob(N(t)=k)$.
+
+\topic{When independent Poisson processes are merged}
+\situation Several independent arrival streams are combined into one stream.
+
+\cue Merging Poisson processes adds rates. If the next arrival came from the merged stream, the chance it came from stream $i$ is proportional to $\lambda_i$.
+
+\formula
+\[
+N_i(t)\sim \operatorname{Poisson}(\lambda_i t)\text{ independent}
+\quad\Longrightarrow\quad
+\sum_i N_i(t)\sim \operatorname{Poisson}\!\left(\left(\sum_i\lambda_i\right)t\right).
+\]
+Also,
+\[
+\Prob(\text{next arrival is from stream }i)=
+\frac{\lambda_i}{\sum_j\lambda_j}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\lambda_i$ is the rate of process $i$.
+  \item $\sum_i\lambda_i$ is the merged rate.
+\end{symbolitems}
+
+\means Merging independent Poisson processes adds their rates.
+
+\exam Calls arrive from two independent sources at rates $\lambda_1$ and $\lambda_2$. What is the distribution of the total number of calls by time $t$?
+
+\trap The processes must be independent.
+
+\topic{When arrivals are split into types}
+\situation Each arrival of a Poisson process is independently labeled as type $i$ with probability $p_i$.
+
+\cue Splitting multiplies the rate by the routing/type probability. The resulting type streams are Poisson.
+
+\formula
+\[
+N_i(t)\sim \operatorname{Poisson}(\lambda p_i t).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $\lambda$ is the original arrival rate.
+  \item $p_i$ is the probability an arrival is type $i$.
+  \item $N_i(t)$ is the number of type $i$ arrivals by time $t$.
+\end{symbolitems}
+
+\means Splitting multiplies the original rate by the type probability.
+
+\exam Customers arrive at rate $\lambda$, and each customer is type A with probability $p$. What is the distribution of the number of type A customers by time $t$?
+
+\trap The type label must be assigned independently for each arrival.
+
+\topic{When the total number of arrivals is given}
+\situation The problem says something like ``given $N(t)=m$'' and asks how many arrivals are of one type.
+
+\cue This is the key switch: after the total count is fixed, the Poisson count disappears and the problem becomes Binomial-style classification.
+
+\formula
+\[
+N_1(t)\mid N(t)=m \sim \operatorname{Binomial}(m,p_1).
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $m$ is the given total number of arrivals.
+  \item $p_1$ is the probability an arrival is type 1.
+  \item $N_1(t)$ is the number of type 1 arrivals.
+\end{symbolitems}
+
+\means Once the total count is fixed, you are back to $m$ independent classifications, so Binomial appears.
+
+\exam Emails arrive according to a Poisson process. Each email is spam with probability $0.2$. Given that 10 emails arrived in one hour, what is the probability that exactly 3 were spam?
+
+\trap This is exactly the kind of problem where a Poisson process question suddenly becomes a Binomial question.
+
+\topic{When you arrive at a random time between renewals}
+\situation A process has interarrival intervals, and you show up at an arbitrary random time. The question asks about the interval you landed in or the time to the next arrival.
+
+\cue Random time is not the same as random interval. A randomly chosen time is more likely to fall inside a longer interval.
+
+\formula
+If the interarrival length $L$ takes values $\ell_i$ with probabilities $p_i$, then
+\[
+\Prob(\text{chosen interval has length }\ell_i)
+=\frac{\ell_i p_i}{\E[L]}.
+\]
+Given the chosen interval length is $\ell_i$ and the arrival time inside it is uniform,
+\[
+\E[\text{forward wait}\mid L=\ell_i]=\frac{\ell_i}{2}.
+\]
+
+\symbols
+\begin{symbolitems}
+  \item $L$ is an ordinary interarrival length.
+  \item $\ell_i$ is one possible length.
+  \item $p_i=\Prob(L=\ell_i)$.
+  \item $\E[L]$ is the ordinary average interarrival length.
+\end{symbolitems}
+
+\means Longer intervals occupy more of the timeline, so a random observation time samples intervals in proportion to their lengths.
+
+\exam Bus interarrival times are equally likely to be 5 minutes or 10 minutes. If you arrive at a random time, what is the probability you are in a 10-minute interval?
+
+\trap Do not use the original interval probabilities directly. First convert them into time-weighted probabilities.
+
+\section*{Symbol Reference}
+\addcontentsline{toc}{section}{Symbol Reference}
+
+\begin{center}
+\begin{tabular}{p{1.2in}p{5.45in}}
+\hline
+Symbol & Meaning\\
+\hline
+$A,B,C$ & Events, such as rain, first toss is heads, or system works.\\
+$\Omega$ & Sample space, the set of all possible outcomes.\\
+$X,Y,Z$ & Random variables. Capital letters are random; lowercase letters are possible values.\\
+$x,y,z$ & Specific values that random variables can take.\\
+$p_X(x)$ & PMF of a discrete random variable: $\Prob(X=x)$.\\
+$f_X(x)$ & PDF of a continuous random variable. Probability is area under this curve.\\
+$F_X(x)$ & CDF: $\Prob(X\leq x)$.\\
+$n$ & Fixed number of trials or objects. In Binomial, this is total trials.\\
+$k$ & Target number of successes or arrivals. In kth-success formulas, this is the success/arrival number.\\
+$t$ & Trial number in discrete-time formulas, or time length in continuous-time formulas. Check context.\\
+$p$ & Success probability in one Bernoulli trial. In Binomial, Geometric, and Negative Binomial, it is success probability per trial.\\
+$\lambda$ & Arrival rate in a Poisson process, such as arrivals per minute.\\
+$N(t)$ & Number of Poisson arrivals by time $t$. This is a count.\\
+$T_1$ & Waiting time/trial number until first success or first arrival.\\
+$Y_k$ & Waiting time/trial number until kth success or kth arrival.\\
+$L$ & Interarrival interval length in random incidence or renewal-process questions.\\
+$\E[X]$ & Expected value: long-run average of $X$.\\
+$\Var(X)$ & Variance: spread of $X$ around its mean.\\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{One-Line Model Choice}
+\addcontentsline{toc}{section}{One-Line Model Choice}
+
+\begin{itemize}
+  \item Given $B$: use conditional probability.
+  \item Reverse evidence and cause: use Bayes.
+  \item Several disjoint cases: use total probability.
+  \item Equal likely outcomes: count favorable over total.
+  \item Fixed $n$, exactly $k$ successes: use Binomial.
+  \item Wait for first success in discrete trials: use Geometric.
+  \item Wait for kth success in discrete trials: use Negative Binomial.
+  \item Merge Bernoulli arrivals in one slot: use complement of no arrivals.
+  \item Continuous interval probability: integrate PDF.
+  \item Find distribution of $g(X)$: use CDF method or transformation formula.
+  \item Sum of independent variables: use convolution.
+  \item Expected value after observing $Y$: use conditional expectation.
+  \item Continuous-time arrivals with rate $\lambda$: use Poisson process.
+  \item Many rare independent successes: approximate Binomial by Poisson with $\lambda=np$.
+  \item Number of arrivals by time $t$: use Poisson$(\lambda t)$.
+  \item Time to first Poisson arrival: use Exponential$(\lambda)$.
+  \item Time to kth Poisson arrival: use Erlang$(k,\lambda)$.
+  \item Merge independent Poisson streams: add rates.
+  \item Split Poisson arrivals into types: multiply rate by type probability.
+  \item Given total arrivals $m$: use Binomial-style allocation.
+  \item Arrive at a random time between renewals: use length-weighted interval probabilities.
+\end{itemize}
+
+\section*{Scope Check}
+\addcontentsline{toc}{section}{Scope Check}
+This PDF keeps only Lectures 1--15. It does not include later-course material.
+
+\end{document}
