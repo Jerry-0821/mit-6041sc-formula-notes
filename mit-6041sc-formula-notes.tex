@@ -1200,12 +1200,17 @@ N(t)\sim \operatorname{Poisson}(\lambda t),
 
 \formula
 \[
+N(t_2)-N(t_1)\sim \operatorname{Poisson}(\lambda(t_2-t_1)),
+\]
+and this count is independent of counts in disjoint intervals:
+\[
 N(t_2)-N(t_1)\quad\text{is independent of counts outside }(t_1,t_2].
 \]
 
 \symbols
 \begin{symbolitems}
   \item $N(t_2)-N(t_1)$ is the number of arrivals between times $t_1$ and $t_2$.
+  \item $\lambda(t_2-t_1)$ is the expected number of arrivals in that interval.
 \end{symbolitems}
 
 \means Poisson process has independent increments: disjoint intervals behave independently.
