@@ -2,6 +2,8 @@
 
 Personal formula and exam-review notes for MIT OpenCourseWare 6.041SC, **Probabilistic Systems Analysis and Applied Probability**.
 
+This is an unofficial personal study project and is not affiliated with, sponsored by, or endorsed by MIT.
+
 I made these notes while studying the course because I found that there are many formulas, models, and similar-looking situations that are easy to mix up during exam review. The goal is not to create a complete textbook-style reference. Instead, this is a compact formula guide based on my handwritten notes, lecture review, and problem-solving experience.
 
 The notes focus on:
@@ -27,6 +29,8 @@ This version covers MIT 6.041SC Lectures 1-15 only. Later-course topics are inte
 ## Course
 
 MIT OpenCourseWare 6.041SC: Probabilistic Systems Analysis and Applied Probability.
+
+The original MIT OpenCourseWare course materials are provided by MIT OCW under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. This repository is a personal study aid written from my own notes and understanding.
 
 ## License
 
