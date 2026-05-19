@@ -8,17 +8,17 @@ I made these notes while studying the course because I found that there are many
 
 ## Preview
 
-| Formula sheet | AI-cleaned handwritten note |
+| Formula sheet | Handwritten recitation note |
 | --- | --- |
-| ![Formula sheet preview](assets/readme/formula-notes-preview.png) | ![AI-cleaned handwritten note preview](assets/readme/handwritten-recitation-preview.png) |
+| ![Formula sheet preview](assets/readme/formula-notes-preview.png) | ![Handwritten recitation note preview](assets/readme/handwritten-recitation-preview.png) |
 
 ## Files
 
 - [`mit-6041sc-formula-notes.pdf`](mit-6041sc-formula-notes.pdf): compiled formula-sheet PDF.
 - [`mit-6041sc-formula-notes.tex`](mit-6041sc-formula-notes.tex): editable LaTeX source for the formula notes.
-- [`handwritten-recitation-notes/`](handwritten-recitation-notes/): AI-cleaned PDF versions of selected handwritten recitation notes.
+- [`handwritten-recitation-notes/`](handwritten-recitation-notes/): PDF versions of selected handwritten recitation notes.
 
-The recitation notes currently include Recitations 4-12, 14, 15, and 17. Some recitations are not included because I do not have a finalized cleaned PDF for them yet.
+The recitation notes currently include Recitations 4-12, 14, 15, and 17. Some recitations are not included because I do not have a finalized PDF for them yet.
 
 ## Important Note About Accuracy
 
