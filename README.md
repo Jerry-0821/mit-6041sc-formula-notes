@@ -6,6 +6,12 @@ This is an unofficial personal study project and is not affiliated with, sponsor
 
 I made these notes while studying the course because I found that there are many formulas, models, and similar-looking situations that are easy to mix up during exam review. The goal is not to create a complete textbook-style reference. Instead, this repository collects my compact formula notes and selected recitation practice notes based on my own handwritten work.
 
+## Preview
+
+| Formula sheet | AI-cleaned handwritten note |
+| --- | --- |
+| ![Formula sheet preview](assets/readme/formula-notes-preview.png) | ![AI-cleaned handwritten note preview](assets/readme/handwritten-recitation-preview.png) |
+
 ## Files
 
 - [`mit-6041sc-formula-notes.pdf`](mit-6041sc-formula-notes.pdf): compiled formula-sheet PDF.
