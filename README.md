@@ -6,20 +6,6 @@ This is an unofficial personal study project and is not affiliated with, sponsor
 
 I made these notes while studying the course because I found that there are many formulas, models, and similar-looking situations that are easy to mix up during exam review. The goal is not to create a complete textbook-style reference. Instead, this repository collects my compact formula-only notes and selected recitation practice notes based on my own handwritten work.
 
-## Preview
-
-**Contents**
-
-![Contents preview](assets/readme/preview-01-contents.png)
-
-**Formula sheet**
-
-![Formula sheet preview](assets/readme/preview-02-formula.png)
-
-**Handwritten recitation note**
-
-![Handwritten recitation note preview](assets/readme/preview-03-handwritten.png)
-
 ## Files
 
 - [`mit-6041sc-formula-notes.pdf`](mit-6041sc-formula-notes.pdf): compiled formula-only PDF for Lectures 1-25.
@@ -27,6 +13,16 @@ I made these notes while studying the course because I found that there are many
 - [`handwritten-recitation-notes/`](handwritten-recitation-notes/): PDF versions of selected handwritten recitation notes.
 
 The recitation notes currently include Recitations 4-12, 14, 15, and 17. Some recitations are not included because I do not have a finalized PDF for them yet.
+
+## Preview
+
+| Contents | Formula sheet |
+| --- | --- |
+| <img src="assets/readme/preview-01-contents.png" alt="Contents preview" width="420"> | <img src="assets/readme/preview-02-formula.png" alt="Formula sheet preview" width="420"> |
+
+**Handwritten recitation note**
+
+![Handwritten recitation note preview](assets/readme/preview-03-handwritten.png)
 
 ## Important Note About Accuracy
 
