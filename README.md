@@ -1,10 +1,10 @@
-# MIT 6.041SC Formula Sheets and Handwritten Notes
+# MIT 6.041SC Formula Cheat Sheet and Handwritten Notes
 
-Personal formula sheets and practice notes for MIT OpenCourseWare 6.041SC, **Probabilistic Systems Analysis and Applied Probability**.
+Personal formula notes and selected practice notes for MIT OpenCourseWare 6.041SC, **Probabilistic Systems Analysis and Applied Probability**.
 
 This is an unofficial personal study project and is not affiliated with, sponsored by, or endorsed by MIT.
 
-I made these notes while studying the course because I found that there are many formulas, models, and similar-looking situations that are easy to mix up during exam review. The goal is not to create a complete textbook-style reference. Instead, this repository collects my compact formula-only notes and selected recitation practice notes based on my own handwritten work.
+I made this while studying 6.041SC because, honestly, the course felt hard in a very specific way: after almost every lecture, another batch of formulas appeared, and many of them looked useful in similar situations. When I reviewed by testing myself with exam-style questions, not having a formula sheet felt unnecessarily painful. So I made a compact formula cheat sheet for myself, focused on quick recall rather than textbook-style completeness. I hope it is useful if you are reviewing the course too.
 
 ## Files
 
@@ -12,7 +12,7 @@ I made these notes while studying the course because I found that there are many
 - [`mit-6041sc-formula-notes.tex`](mit-6041sc-formula-notes.tex): editable LaTeX source for the formula-only notes.
 - [`handwritten-recitation-notes/`](handwritten-recitation-notes/): PDF versions of selected handwritten recitation notes.
 
-The recitation notes currently include Recitations 4-12, 14, 15, and 17. Some recitations are not included because I do not have a finalized PDF for them yet.
+The formula cheat sheet is the main item in this repository. The handwritten recitation notes are intentionally incomplete: they only include Recitations 4-12, 14, 15, and 17, because those are the places where I slowed down, got confused, or needed enough extra practice to keep a cleaned version.
 
 ## Preview
 
@@ -26,20 +26,13 @@ The recitation notes currently include Recitations 4-12, 14, 15, and 17. Some re
 
 ## Important Note About Accuracy
 
-The recitation PDFs were produced from my own handwritten notes and then cleaned up with AI assistance to make them easier to read. They should be treated as personal practice notes, not official solutions.
+These notes are personal study material, not official MIT content. The formula sheet was made from my own study notes and review process, and the handwritten recitation PDFs come from my own handwritten practice notes; some of them were cleaned up with AI assistance to make them easier to read. There may still be mistakes, transcription issues, or explanations that follow my own problem-solving logic rather than the shortest official-looking route.
 
-Please read them carefully:
-
-- the original handwritten notes may contain mistakes;
-- the AI cleanup process may introduce transcription or formatting errors;
-- my explanations follow my own problem-solving logic and may differ from other valid approaches;
-- these notes are meant to support review, not replace the official course material or textbook.
-
-If you use these notes, cross-check formulas, derivations, and final answers against the MIT OCW materials, the textbook, or your own work.
+Use this repository as a review aid, especially for remembering which formula belongs to which kind of situation. For anything important, cross-check the formulas, derivations, and answers against the MIT OCW materials, the textbook, or your own work.
 
 ## Scope
 
-The formula-sheet PDF focuses on MIT 6.041SC Lectures 1-25, covering probability models and axioms, conditioning and Bayes' rule, counting, discrete and continuous random variables, expectation and variance, joint distributions, transformations, convolution, covariance, conditional expectation, Bernoulli and Poisson processes, Markov chains, Chebyshev's inequality, WLLN, CLT, Bayesian inference, LMS estimation, classical statistics, regression, likelihood ratio tests, and hypothesis testing. The handwritten recitation notes are selected practice writeups from my study process.
+The formula sheet focuses on MIT 6.041SC Lectures 1-25, covering probability models and axioms, conditioning and Bayes' rule, counting, discrete and continuous random variables, expectation and variance, joint distributions, transformations, convolution, covariance, conditional expectation, Bernoulli and Poisson processes, Markov chains, Chebyshev's inequality, WLLN, CLT, Bayesian inference, LMS estimation, classical statistics, regression, likelihood ratio tests, and hypothesis testing. The handwritten recitation notes are selected practice writeups from my study process and should not be read as a complete recitation set.
 
 ## Course
 
