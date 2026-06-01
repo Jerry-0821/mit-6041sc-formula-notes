@@ -4,7 +4,7 @@ Personal formula sheets and practice notes for MIT OpenCourseWare 6.041SC, **Pro
 
 This is an unofficial personal study project and is not affiliated with, sponsored by, or endorsed by MIT.
 
-I made these notes while studying the course because I found that there are many formulas, models, and similar-looking situations that are easy to mix up during exam review. The goal is not to create a complete textbook-style reference. Instead, this repository collects my compact formula notes and selected recitation practice notes based on my own handwritten work.
+I made these notes while studying the course because I found that there are many formulas, models, and similar-looking situations that are easy to mix up during exam review. The goal is not to create a complete textbook-style reference. Instead, this repository collects my compact formula-only notes and selected recitation practice notes based on my own handwritten work.
 
 ## Preview
 
@@ -14,8 +14,8 @@ I made these notes while studying the course because I found that there are many
 
 ## Files
 
-- [`mit-6041sc-formula-notes.pdf`](mit-6041sc-formula-notes.pdf): compiled formula-sheet PDF.
-- [`mit-6041sc-formula-notes.tex`](mit-6041sc-formula-notes.tex): editable LaTeX source for the formula notes.
+- [`mit-6041sc-formula-notes.pdf`](mit-6041sc-formula-notes.pdf): compiled formula-only PDF for Lectures 1-25.
+- [`mit-6041sc-formula-notes.tex`](mit-6041sc-formula-notes.tex): editable LaTeX source for the formula-only notes.
 - [`handwritten-recitation-notes/`](handwritten-recitation-notes/): PDF versions of selected handwritten recitation notes.
 
 The recitation notes currently include Recitations 4-12, 14, 15, and 17. Some recitations are not included because I do not have a finalized PDF for them yet.
@@ -35,7 +35,7 @@ If you use these notes, cross-check formulas, derivations, and final answers aga
 
 ## Scope
 
-The formula-sheet PDF focuses on MIT 6.041SC Lectures 1-15. The handwritten recitation notes are selected practice writeups from my study process.
+The formula-sheet PDF focuses on MIT 6.041SC Lectures 1-25. The handwritten recitation notes are selected practice writeups from my study process.
 
 ## Course
 
