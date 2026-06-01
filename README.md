@@ -8,9 +8,17 @@ I made these notes while studying the course because I found that there are many
 
 ## Preview
 
-| Formula sheet | Handwritten recitation note |
-| --- | --- |
-| ![Formula sheet preview](assets/readme/formula-notes-preview.png) | ![Handwritten recitation note preview](assets/readme/handwritten-recitation-preview.png) |
+**Contents**
+
+![Contents preview](assets/readme/preview-01-contents.png)
+
+**Formula sheet**
+
+![Formula sheet preview](assets/readme/preview-02-formula.png)
+
+**Handwritten recitation note**
+
+![Handwritten recitation note preview](assets/readme/preview-03-handwritten.png)
 
 ## Files
 
@@ -35,7 +43,7 @@ If you use these notes, cross-check formulas, derivations, and final answers aga
 
 ## Scope
 
-The formula-sheet PDF focuses on MIT 6.041SC Lectures 1-25. The handwritten recitation notes are selected practice writeups from my study process.
+The formula-sheet PDF focuses on MIT 6.041SC Lectures 1-25, covering probability models and axioms, conditioning and Bayes' rule, counting, discrete and continuous random variables, expectation and variance, joint distributions, transformations, convolution, covariance, conditional expectation, Bernoulli and Poisson processes, Markov chains, Chebyshev's inequality, WLLN, CLT, Bayesian inference, LMS estimation, classical statistics, regression, likelihood ratio tests, and hypothesis testing. The handwritten recitation notes are selected practice writeups from my study process.
 
 ## Course
 
